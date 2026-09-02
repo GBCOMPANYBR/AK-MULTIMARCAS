@@ -39,7 +39,9 @@ export function ReceiptDocument({ rental }: { rental: ReceiptData }) {
             <View>
               <Text style={styles.companyName}>{siteConfig.name}</Text>
               <Text style={styles.companyMeta}>{siteConfig.address}</Text>
-              <Text style={styles.companyMeta}>{siteConfig.phoneDisplay}</Text>
+              <Text style={styles.companyMeta}>
+                CNPJ {siteConfig.cnpj} · {siteConfig.phoneDisplay}
+              </Text>
             </View>
           </View>
           <View>

@@ -25,7 +25,6 @@ export default async function HomePage() {
     brand: v.brand,
     model: v.model,
     category: v.category,
-    dailyRate: v.dailyRate,
     imageUrl: v.images[0]?.url,
   }));
 

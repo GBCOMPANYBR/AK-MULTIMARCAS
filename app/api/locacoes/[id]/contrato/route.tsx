@@ -33,6 +33,7 @@ export async function GET(_req: Request, { params }: { params: Promise<{ id: str
         surcharge: rental.surcharge,
         deposit: rental.deposit,
         totalAmount: rental.totalAmount,
+        paymentMethod: rental.paymentMethod,
         conditionNotes: outChecklist?.conditionNotes,
       }}
     />

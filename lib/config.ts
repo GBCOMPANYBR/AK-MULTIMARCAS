@@ -1,13 +1,15 @@
-// TODO: substituir pelos dados reais da AK Multimarcas antes de publicar.
+// TODO: substituir telefone/WhatsApp/Instagram pelos dados reais da AK Multimarcas.
 export const siteConfig = {
   name: "AK Multimarcas",
+  legalName: "AK Multimarcas",
+  cnpj: "65.384.586/0001-80",
   tagline: "Do popular ao luxo. O carro certo para o seu momento.",
   whatsappNumber: "5511999999999", // formato internacional sem símbolos
   phoneDisplay: "(11) 99999-9999",
   instagram: "https://instagram.com/akmultimarcas",
-  address: "Av. Exemplo, 1000 - São Paulo, SP",
+  address: "Rua Frei Mont'Alverne, 853 - Vila Aricanduva, São Paulo - SP - CEP 03505-030",
   mapsEmbedUrl:
-    "https://www.google.com/maps?q=Av.+Paulista,+São+Paulo&output=embed",
+    "https://www.google.com/maps?q=Rua+Frei+Mont'Alverne,+853+-+Vila+Aricanduva,+São+Paulo+-+SP&output=embed",
   hours: [
     { days: "Segunda a Sexta", time: "08h às 18h" },
     { days: "Sábado", time: "08h às 13h" },

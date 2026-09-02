@@ -43,7 +43,7 @@ export function ContactFooter() {
         </div>
       </div>
       <div className="border-t border-white/10 py-5 text-center text-xs text-ak-silver-dark">
-        © {new Date().getFullYear()} {siteConfig.name}. Todos os direitos reservados.
+        © {new Date().getFullYear()} {siteConfig.name} — CNPJ {siteConfig.cnpj}. Todos os direitos reservados.
       </div>
     </footer>
   );

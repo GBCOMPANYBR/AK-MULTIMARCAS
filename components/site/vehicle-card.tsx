@@ -1,13 +1,11 @@
 import Image from "next/image";
 import { buildWhatsappLink, vehicleCategoryLabels } from "@/lib/config";
-import { formatCurrencyBRL } from "@/lib/masks/br";
 
 export interface SiteVehicle {
   id: string;
   brand: string;
   model: string;
   category: string;
-  dailyRate: number;
   imageUrl?: string;
 }
 
@@ -38,9 +36,8 @@ export function VehicleCard({ vehicle }: { vehicle: SiteVehicle }) {
         <h3 className="font-heading font-bold text-lg text-ak-silver-light">
           {vehicle.brand} {vehicle.model}
         </h3>
-        <p className="text-ak-red-glow font-heading font-bold text-xl mt-1">
-          {formatCurrencyBRL(vehicle.dailyRate)}
-          <span className="text-ak-silver-dark text-sm font-normal"> /diária</span>
+        <p className="text-ak-red-glow font-heading font-bold text-sm uppercase tracking-wide mt-1">
+          Consulte nossos preços
         </p>
         <a
           href={buildWhatsappLink(message)}

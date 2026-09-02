@@ -3,6 +3,7 @@ const items = [
   { title: "Popular ao luxo", desc: "Do carro econômico do dia a dia ao modelo premium para ocasiões especiais." },
   { title: "Atendimento rápido", desc: "Reserva e confirmação em minutos, direto pelo WhatsApp." },
   { title: "Flexibilidade de prazos", desc: "Diárias, semanas ou meses — você escolhe o período ideal." },
+  { title: "Flexibilidade no pagamento", desc: "Pix, cartão, dinheiro ou parcelado — você escolhe a forma que for melhor pra você." },
   { title: "Entrega e retirada", desc: "Facilidade para retirar e devolver o veículo conforme sua necessidade." },
   { title: "Suporte durante a locação", desc: "Time disponível para qualquer imprevisto durante o período alugado." },
 ];

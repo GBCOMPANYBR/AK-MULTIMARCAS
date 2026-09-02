@@ -1,8 +1,8 @@
 const steps = [
   { n: "01", title: "Escolha o carro", desc: "Navegue pela nossa frota e encontre o veículo ideal para o seu momento." },
   { n: "02", title: "Fale no WhatsApp", desc: "Confirme disponibilidade, prazos e valores diretamente com nossa equipe." },
-  { n: "03", title: "Assine e retire", desc: "Leve seus documentos, assine o contrato e retire o carro revisado." },
-  { n: "04", title: "Rode tranquilo", desc: "Aproveite sua viagem com suporte da AK Multimarcas o tempo todo." },
+  { n: "03", title: "Assine e retire", desc: "Envie seus documentos, assine o contrato e retire o carro revisado." },
+  { n: "04", title: "Desfrute tranquilamente", desc: "Aproveite sua viagem com suporte da AK Multimarcas o tempo todo." },
 ];
 
 export function HowItWorks() {

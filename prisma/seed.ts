@@ -138,7 +138,7 @@ async function main() {
     },
     {
       brand: "Hyundai",
-      model: "Creta Ultimate",
+      model: "Creta N Line",
       year: 2024,
       color: "Branco Perolizado",
       plate: "ABC5D67",
