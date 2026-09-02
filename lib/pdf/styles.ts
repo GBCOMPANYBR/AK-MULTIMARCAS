@@ -1,0 +1,72 @@
+import { StyleSheet } from "@react-pdf/renderer";
+
+export const colors = {
+  black: "#0a0a0a",
+  red: "#e10600",
+  silver: "#6b6b6b",
+  silverLight: "#333333",
+  border: "#dddddd",
+};
+
+export const styles = StyleSheet.create({
+  page: {
+    padding: 36,
+    fontSize: 10,
+    fontFamily: "Helvetica",
+    color: "#1a1a1a",
+  },
+  header: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    borderBottom: `2px solid ${colors.red}`,
+    paddingBottom: 12,
+    marginBottom: 16,
+  },
+  logo: { width: 48, height: 48, borderRadius: 4 },
+  companyName: { fontSize: 16, fontFamily: "Helvetica-Bold", color: colors.black },
+  companyMeta: { fontSize: 8, color: colors.silver, marginTop: 2 },
+  docTitle: { fontSize: 12, fontFamily: "Helvetica-Bold", color: colors.red, textAlign: "right" },
+  section: { marginBottom: 12 },
+  sectionTitle: {
+    fontSize: 9,
+    fontFamily: "Helvetica-Bold",
+    color: colors.red,
+    textTransform: "uppercase",
+    marginBottom: 6,
+    letterSpacing: 0.5,
+  },
+  row: { flexDirection: "row", justifyContent: "space-between", marginBottom: 3 },
+  label: { color: colors.silver },
+  value: { fontFamily: "Helvetica-Bold" },
+  table: { borderTop: `1px solid ${colors.border}` },
+  tableRow: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    borderBottom: `1px solid ${colors.border}`,
+    paddingVertical: 4,
+  },
+  totalRow: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginTop: 6,
+    paddingTop: 6,
+    borderTop: `1px solid ${colors.black}`,
+  },
+  totalLabel: { fontSize: 11, fontFamily: "Helvetica-Bold" },
+  totalValue: { fontSize: 13, fontFamily: "Helvetica-Bold", color: colors.red },
+  terms: { fontSize: 8, color: colors.silver, lineHeight: 1.5 },
+  signatures: { flexDirection: "row", justifyContent: "space-between", marginTop: 48 },
+  signatureBox: { width: "45%", borderTop: `1px solid #333`, paddingTop: 4, textAlign: "center", fontSize: 8 },
+  footer: {
+    position: "absolute",
+    bottom: 24,
+    left: 36,
+    right: 36,
+    fontSize: 7,
+    color: colors.silver,
+    textAlign: "center",
+    borderTop: `1px solid ${colors.border}`,
+    paddingTop: 6,
+  },
+});
