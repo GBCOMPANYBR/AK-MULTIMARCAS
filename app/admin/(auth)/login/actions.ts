@@ -8,7 +8,7 @@ export async function loginAction(
   formData: FormData
 ): Promise<string | undefined> {
   try {
-    await signIn("credentials", {
+    await signIn("staff-credentials", {
       email: formData.get("email"),
       password: formData.get("password"),
       redirectTo: "/admin/dashboard",

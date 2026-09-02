@@ -4,14 +4,14 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { prisma } from "@/lib/prisma";
 import { newRentalSchema, returnRentalSchema, extendRentalSchema } from "@/lib/validations/rental";
-import { requireUser } from "@/lib/auth-guard";
+import { requireStaff } from "@/lib/auth-guard";
 import { logAction } from "@/lib/audit";
 import { saveUploadedFile } from "@/lib/uploads";
 import { onlyDigits } from "@/lib/masks/br";
 import { calcNumDays, calcPreviewTotal, calcReturn, calcBalance } from "@/lib/rental-calculations";
 
 export async function createRental(_prevState: unknown, formData: FormData) {
-  const user = await requireUser();
+  const user = await requireStaff();
 
   const raw = Object.fromEntries(formData.entries());
   const parsed = newRentalSchema.safeParse(raw);
@@ -117,7 +117,7 @@ export async function createRental(_prevState: unknown, formData: FormData) {
 }
 
 export async function returnRental(rentalId: string, _prevState: unknown, formData: FormData) {
-  const user = await requireUser();
+  const user = await requireStaff();
 
   const raw = Object.fromEntries(formData.entries());
   const parsed = returnRentalSchema.safeParse(raw);
@@ -215,7 +215,7 @@ export async function returnRental(rentalId: string, _prevState: unknown, formDa
 }
 
 export async function extendRental(rentalId: string, _prevState: unknown, formData: FormData) {
-  await requireUser();
+  await requireStaff();
   const parsed = extendRentalSchema.safeParse({
     newExpectedReturnDatetime: formData.get("newExpectedReturnDatetime"),
   });
@@ -249,7 +249,7 @@ export async function extendRental(rentalId: string, _prevState: unknown, formDa
 }
 
 export async function registerPayment(rentalId: string, _prevState: unknown, formData: FormData) {
-  await requireUser();
+  await requireStaff();
   const amount = Number(formData.get("amount"));
   if (!amount || amount <= 0) return { error: "Informe um valor válido" };
 
@@ -270,7 +270,7 @@ export async function registerPayment(rentalId: string, _prevState: unknown, for
 }
 
 export async function cancelRental(rentalId: string) {
-  const user = await requireUser();
+  const user = await requireStaff();
   const rental = await prisma.rental.findUnique({ where: { id: rentalId } });
   if (!rental || rental.status !== "ATIVA") return;
 

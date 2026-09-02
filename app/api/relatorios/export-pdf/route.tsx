@@ -1,11 +1,16 @@
 import { renderToBuffer } from "@react-pdf/renderer";
 import { NextRequest } from "next/server";
 import { getRentalHistory } from "@/lib/queries/reports";
-import { requireUser } from "@/lib/auth-guard";
+import { requireStaff, UnauthorizedError } from "@/lib/auth-guard";
 import { ReportDocument } from "@/lib/pdf/report-document";
 
 export async function GET(req: NextRequest) {
-  await requireUser();
+  try {
+    await requireStaff();
+  } catch (error) {
+    if (error instanceof UnauthorizedError) return new Response("Acesso negado", { status: 401 });
+    throw error;
+  }
   const { searchParams } = new URL(req.url);
   const rentals = await getRentalHistory({
     clientId: searchParams.get("clientId") ?? undefined,

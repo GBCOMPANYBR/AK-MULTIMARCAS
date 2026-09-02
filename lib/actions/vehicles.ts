@@ -4,7 +4,7 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { prisma } from "@/lib/prisma";
 import { vehicleSchema, maintenanceRecordSchema } from "@/lib/validations/vehicle";
-import { requireAdmin, requireUser } from "@/lib/auth-guard";
+import { requireAdmin, requireStaff } from "@/lib/auth-guard";
 import { logAction } from "@/lib/audit";
 import { saveUploadedFile, deleteUploadedFile } from "@/lib/uploads";
 import { onlyDigits } from "@/lib/masks/br";
@@ -37,7 +37,7 @@ function parseVehicleForm(formData: FormData) {
 }
 
 export async function createVehicle(_prevState: unknown, formData: FormData) {
-  const user = await requireUser();
+  const user = await requireStaff();
   const parsed = parseVehicleForm(formData);
   if (!parsed.success) {
     return { error: parsed.error.issues[0]?.message ?? "Dados inválidos" };
@@ -72,7 +72,7 @@ export async function createVehicle(_prevState: unknown, formData: FormData) {
 }
 
 export async function updateVehicle(id: string, _prevState: unknown, formData: FormData) {
-  const user = await requireUser();
+  const user = await requireStaff();
   const parsed = parseVehicleForm(formData);
   if (!parsed.success) {
     return { error: parsed.error.issues[0]?.message ?? "Dados inválidos" };
@@ -132,7 +132,7 @@ export async function deleteVehicle(id: string) {
 }
 
 export async function setPrimaryImage(vehicleId: string, imageId: string) {
-  await requireUser();
+  await requireStaff();
   await prisma.$transaction([
     prisma.vehicleImage.updateMany({ where: { vehicleId }, data: { isPrimary: false } }),
     prisma.vehicleImage.update({ where: { id: imageId }, data: { isPrimary: true } }),
@@ -141,7 +141,7 @@ export async function setPrimaryImage(vehicleId: string, imageId: string) {
 }
 
 export async function deleteVehicleImage(vehicleId: string, imageId: string) {
-  await requireUser();
+  await requireStaff();
   const image = await prisma.vehicleImage.findUnique({ where: { id: imageId } });
   if (!image) return;
   await prisma.vehicleImage.delete({ where: { id: imageId } });
@@ -160,7 +160,7 @@ export async function deleteVehicleImage(vehicleId: string, imageId: string) {
 }
 
 export async function addMaintenanceRecord(vehicleId: string, _prevState: unknown, formData: FormData) {
-  await requireUser();
+  await requireStaff();
   const parsed = maintenanceRecordSchema.safeParse({
     date: formData.get("date"),
     km: formData.get("km"),

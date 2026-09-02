@@ -5,7 +5,7 @@ import { ClientForm } from "@/components/admin/client-form";
 import { DeleteButton } from "@/components/admin/delete-button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { updateClient, deleteClient } from "@/lib/actions/clients";
+import { updateClient, deleteClient, resetClientPassword } from "@/lib/actions/clients";
 import { formatCurrencyBRL, formatDateBR } from "@/lib/masks/br";
 import { auth } from "@/lib/auth";
 
@@ -51,6 +51,31 @@ export default async function ClienteDetalhePage({
         </CardHeader>
         <CardContent>
           <ClientForm action={updateClient.bind(null, client.id)} defaultValues={client} submitLabel="Salvar alterações" />
+        </CardContent>
+      </Card>
+
+      <Card>
+        <CardHeader>
+          <CardTitle>Área do cliente</CardTitle>
+        </CardHeader>
+        <CardContent className="flex items-center justify-between">
+          <div>
+            <Badge tone={client.passwordHash ? "green" : "gray"}>
+              {client.passwordHash ? "Acesso ativo" : "Sem acesso configurado"}
+            </Badge>
+            <p className="text-xs text-ak-silver-dark mt-2">
+              {client.passwordHash
+                ? "O cliente já criou uma senha e pode acessar suas locações em /area-do-cliente."
+                : "O cliente ainda não criou uma senha de acesso."}
+            </p>
+          </div>
+          {client.passwordHash && (
+            <form action={resetClientPassword.bind(null, client.id)}>
+              <button className="text-xs text-ak-silver-dark hover:text-ak-red-glow underline">
+                Redefinir senha
+              </button>
+            </form>
+          )}
         </CardContent>
       </Card>
 

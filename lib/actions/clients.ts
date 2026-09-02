@@ -4,7 +4,7 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { prisma } from "@/lib/prisma";
 import { clientSchema } from "@/lib/validations/client";
-import { requireAdmin, requireUser } from "@/lib/auth-guard";
+import { requireAdmin, requireStaff } from "@/lib/auth-guard";
 import { logAction } from "@/lib/audit";
 import { onlyDigits } from "@/lib/masks/br";
 
@@ -24,7 +24,7 @@ function parseClientForm(formData: FormData) {
 }
 
 export async function createClient(_prevState: unknown, formData: FormData) {
-  const user = await requireUser();
+  const user = await requireStaff();
   const parsed = parseClientForm(formData);
   if (!parsed.success) {
     return { error: parsed.error.issues[0]?.message ?? "Dados inválidos" };
@@ -52,7 +52,7 @@ export async function createClient(_prevState: unknown, formData: FormData) {
 }
 
 export async function updateClient(id: string, _prevState: unknown, formData: FormData) {
-  const user = await requireUser();
+  const user = await requireStaff();
   const parsed = parseClientForm(formData);
   if (!parsed.success) {
     return { error: parsed.error.issues[0]?.message ?? "Dados inválidos" };
@@ -95,4 +95,11 @@ export async function deleteClient(id: string) {
   await logAction(user.id, "DELETE", "Client", id, client.fullName);
   revalidatePath("/admin/clientes");
   redirect("/admin/clientes");
+}
+
+export async function resetClientPassword(id: string) {
+  const user = await requireStaff();
+  await prisma.client.update({ where: { id }, data: { passwordHash: null } });
+  await logAction(user.id, "RESET_PASSWORD", "Client", id);
+  revalidatePath(`/admin/clientes/${id}`);
 }

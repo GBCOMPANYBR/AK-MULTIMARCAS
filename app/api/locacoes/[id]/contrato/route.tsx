@@ -1,10 +1,9 @@
 import { renderToBuffer } from "@react-pdf/renderer";
 import { prisma } from "@/lib/prisma";
-import { requireUser } from "@/lib/auth-guard";
+import { requireRentalAccess, UnauthorizedError } from "@/lib/auth-guard";
 import { ContractDocument } from "@/lib/pdf/contract-document";
 
 export async function GET(_req: Request, { params }: { params: Promise<{ id: string }> }) {
-  await requireUser();
   const { id } = await params;
 
   const rental = await prisma.rental.findUnique({
@@ -13,6 +12,13 @@ export async function GET(_req: Request, { params }: { params: Promise<{ id: str
   });
 
   if (!rental) return new Response("Locação não encontrada", { status: 404 });
+
+  try {
+    await requireRentalAccess(rental.clientId);
+  } catch (error) {
+    if (error instanceof UnauthorizedError) return new Response("Acesso negado", { status: 403 });
+    throw error;
+  }
 
   const outChecklist = rental.checklists.find((c) => c.type === "SAIDA");
 

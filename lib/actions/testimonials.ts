@@ -4,7 +4,7 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { z } from "zod";
 import { prisma } from "@/lib/prisma";
-import { requireUser, requireAdmin } from "@/lib/auth-guard";
+import { requireStaff, requireAdmin } from "@/lib/auth-guard";
 
 const testimonialSchema = z.object({
   clientName: z.string().min(2, "Informe o nome"),
@@ -14,7 +14,7 @@ const testimonialSchema = z.object({
 });
 
 export async function createTestimonial(_prevState: unknown, formData: FormData) {
-  await requireUser();
+  await requireStaff();
   const parsed = testimonialSchema.safeParse({
     clientName: formData.get("clientName"),
     rating: formData.get("rating"),
@@ -30,7 +30,7 @@ export async function createTestimonial(_prevState: unknown, formData: FormData)
 }
 
 export async function updateTestimonial(id: string, _prevState: unknown, formData: FormData) {
-  await requireUser();
+  await requireStaff();
   const parsed = testimonialSchema.safeParse({
     clientName: formData.get("clientName"),
     rating: formData.get("rating"),

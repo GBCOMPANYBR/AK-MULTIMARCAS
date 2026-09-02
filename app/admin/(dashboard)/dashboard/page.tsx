@@ -4,12 +4,14 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { RevenueChart } from "@/components/admin/revenue-chart";
 import { formatCurrencyBRL, formatDateBR } from "@/lib/masks/br";
+import { auth } from "@/lib/auth";
 import Link from "next/link";
 
 export const metadata = { title: "Dashboard" };
 
 export default async function DashboardPage() {
-  const data = await getDashboardData();
+  const [data, session] = await Promise.all([getDashboardData(), auth()]);
+  const isAdmin = session?.user.role === "ADMIN";
 
   return (
     <div className="flex flex-col gap-6">
@@ -29,11 +31,13 @@ export default async function DashboardPage() {
         />
         <StatCard label="Devoluções amanhã" value={data.returnsTomorrow.length} />
         <StatCard label="Taxa de ocupação" value={`${data.occupancyRate}%`} />
-        <StatCard
-          label="Faturamento do mês"
-          value={formatCurrencyBRL(data.monthlyRevenue)}
-          tone="green"
-        />
+        {isAdmin && (
+          <StatCard
+            label="Faturamento do mês"
+            value={formatCurrencyBRL(data.monthlyRevenue)}
+            tone="green"
+          />
+        )}
       </div>
 
       {(data.overdueReturns.length > 0 || data.expiringDocs.length > 0) && (
@@ -87,14 +91,16 @@ export default async function DashboardPage() {
         </div>
       )}
 
-      <Card>
-        <CardHeader>
-          <CardTitle>Faturamento (últimos 6 meses)</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <RevenueChart data={data.revenueChart} />
-        </CardContent>
-      </Card>
+      {isAdmin && (
+        <Card>
+          <CardHeader>
+            <CardTitle>Faturamento (últimos 6 meses)</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <RevenueChart data={data.revenueChart} />
+          </CardContent>
+        </Card>
+      )}
     </div>
   );
 }

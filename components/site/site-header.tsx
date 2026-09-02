@@ -27,6 +27,9 @@ export function SiteHeader() {
               {l.label}
             </a>
           ))}
+          <Link href="/area-do-cliente" className="hover:text-white transition-colors">
+            Área do cliente
+          </Link>
         </nav>
         <a
           href={buildWhatsappLink("Olá! Quero alugar um carro com a AK Multimarcas.")}
