@@ -1,6 +1,8 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
+import { buildWhatsappLink } from "@/lib/config";
 
 const faqs = [
   {
@@ -30,11 +32,28 @@ export function Faq() {
 
   return (
     <section id="faq" className="max-w-3xl mx-auto px-4 py-20 sm:py-28">
-      <div className="text-center mb-10">
+      <div className="flex flex-col items-center text-center mb-10">
         <span className="font-heading text-xs uppercase tracking-[0.3em] text-ak-red-glow">Dúvidas</span>
-        <h2 className="font-heading text-3xl sm:text-4xl font-bold text-ak-silver-light mt-2">
+        <h2 className="font-heading text-3xl sm:text-4xl font-bold text-ak-silver-light mt-2 mb-6">
           Perguntas frequentes
         </h2>
+        <div className="flex items-center gap-4 bg-ak-black-card border border-white/10 rounded-full pl-2 pr-5 py-2">
+          <span className="relative block h-14 w-14 shrink-0 rounded-full overflow-hidden ring-2 ring-ak-red">
+            <Image src="/avatar-ak.png" alt="Time AK Multimarcas" fill className="object-cover object-[50%_35%]" />
+          </span>
+          <p className="text-sm text-ak-silver-light text-left max-w-xs">
+            Separamos as dúvidas mais comuns aqui embaixo — e se ainda ficar alguma,{" "}
+            <a
+              href={buildWhatsappLink("Olá! Fiquei com uma dúvida sobre a locação.")}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-ak-red-glow hover:underline font-medium"
+            >
+              fala com a gente
+            </a>
+            .
+          </p>
+        </div>
       </div>
       <div className="flex flex-col gap-3">
         {faqs.map((f, i) => (
