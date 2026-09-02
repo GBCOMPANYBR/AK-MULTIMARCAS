@@ -15,7 +15,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://akmultimarcas.com.br"),
+  metadataBase: new URL("https://aklocacoesmultimarcas.com.br"),
   title: {
     default: `${siteConfig.name} — Locação de veículos do popular ao luxo`,
     template: `%s | ${siteConfig.name}`,
