@@ -1,11 +1,10 @@
-// TODO: substituir telefone/WhatsApp pelos dados reais da AK Multimarcas.
 export const siteConfig = {
   name: "AK Multimarcas",
   legalName: "AK Multimarcas",
   cnpj: "65.384.586/0001-80",
   tagline: "Do popular ao luxo. O carro certo para o seu momento.",
-  whatsappNumber: "5511999999999", // formato internacional sem símbolos
-  phoneDisplay: "(11) 99999-9999",
+  whatsappNumber: "5511947628138", // formato internacional sem símbolos
+  phoneDisplay: "(11) 94762-8138",
   instagram: "https://instagram.com/ak_multimarcas5",
   address: "Rua Frei Mont'Alverne, 853 - Vila Aricanduva, São Paulo - SP - CEP 03505-030",
   mapsEmbedUrl:
